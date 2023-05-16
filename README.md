@@ -1,2 +1,2 @@
 # chatter
-A simple social media platform built with Django
+A basic social media platform built with Django
