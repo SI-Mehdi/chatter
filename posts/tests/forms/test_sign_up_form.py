@@ -37,3 +37,15 @@ class SignUpFormTestCase(TestCase):
         self.form_input['password'] = 'wrong'
         form = SignUpForm(data=self.form_input)
         self.assertFalse(form.is_valid())
+    
+    def test_save_user_correctly(self):
+        before_count = User.objects.count()
+        form = SignUpForm(data=self.form_input)
+        form.save()
+        after_count = User.objects.count()
+        self.assertEqual(after_count, before_count + 1)
+        user = User.objects.get(username="@johndoe")
+        self.assertEqual(user.first_name, "John")
+        self.assertEqual(user.last_name, "Doe")
+        self.assertEqual(user.email, 'johndoe@test.com')
+        self.assertEqual(user.bio, 'Test')
