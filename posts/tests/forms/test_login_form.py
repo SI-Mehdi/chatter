@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django import forms
+from django.contrib import messages
 from posts.forms import LogInForm
 from django.urls import reverse
 from posts.models import User
@@ -49,10 +50,15 @@ class LogInFormTestCase(TestCase, LogInTest):
         self.assertTrue(isinstance(form, LogInForm))
         self.assertFalse(form.is_bound)
         self.assertFalse(self._is_logged_in())
+        messages_list = list(response.context['messages'])
+        self.assertEqual(len(messages_list), 1)
+        self.assertEqual(messages_list[0].level, messages.ERROR)
     
     def test_successful_login(self):
         response = self.client.post(self.url, self.form_input, follow=True)
         self.assertTrue(self._is_logged_in())
+        messages_list = list(response.context['messages'])
+        self.assertEqual(len(messages_list), 0)
         response_url = reverse('feed')
         self.assertRedirects(response, response_url, status_code=302, target_status_code=200)
         self.assertTemplateUsed(response, 'feed.html')
