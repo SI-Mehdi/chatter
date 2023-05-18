@@ -57,4 +57,3 @@ class LogInFormTestCase(TestCase, LogInTest):
         self.assertRedirects(response, response_url, status_code=302, target_status_code=200)
         self.assertTemplateUsed(response, 'feed.html')
     
-    
