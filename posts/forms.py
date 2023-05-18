@@ -8,9 +8,12 @@ class LogInForm(forms.Form):
 
 class SignUpForm(forms.ModelForm):
     class Meta:
+        # Defines characteristics of fields we use from the model for this form
         model = User
         fields = ['first_name', 'last_name', 'username', 'email', 'bio']
         widgets = {'bio': forms.Textarea()}
+    
+    # Not using password field of model as we want the form to store the hash
     
     password = forms.CharField(
         label='Password',
@@ -24,6 +27,7 @@ class SignUpForm(forms.ModelForm):
     confirm_password = forms.CharField(label='Confirm Password', widget=forms.PasswordInput())
 
     def clean(self):
+        # Use super.clean() to get 'cleaned_data' to check passwords match
         super().clean()
         new_password = self.cleaned_data.get('password')
         confirm_password = self.cleaned_data.get('confirm_password')
@@ -32,6 +36,7 @@ class SignUpForm(forms.ModelForm):
             self.add_error("confirm_password", "Password and confirmation do not match")
     
     def save(self):
+        # Use super.save() to get 'cleaned_data' attribute to allow us to create user after saving
         super().save(commit=False)
         user = User.objects.create_user(
             self.cleaned_data.get('username'),
