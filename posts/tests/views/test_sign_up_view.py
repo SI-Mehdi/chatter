@@ -2,8 +2,9 @@ from django.test import TestCase
 from django.urls import reverse
 from posts.models import User
 from posts.forms import SignUpForm
+from ..helpers import LogInTest
 
-class SignUpViewTestCase(TestCase):
+class SignUpViewTestCase(TestCase, LogInTest):
     def setUp(self):
         self.url = reverse("sign_up")
 
@@ -47,4 +48,5 @@ class SignUpViewTestCase(TestCase):
         response_url = reverse('feed')
         self.assertRedirects(response, response_url, status_code=302, target_status_code=200)
         self.assertTemplateUsed(response, 'feed.html')
+        self.assertTrue(self._is_logged_in())
         
