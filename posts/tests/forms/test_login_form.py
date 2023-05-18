@@ -51,7 +51,10 @@ class LogInFormTestCase(TestCase, LogInTest):
         self.assertFalse(self._is_logged_in())
     
     def test_successful_login(self):
-        response = self.client.post(self.url, self.form_input)
+        response = self.client.post(self.url, self.form_input, follow=True)
         self.assertTrue(self._is_logged_in())
+        response_url = reverse('feed')
+        self.assertRedirects(response, response_url, status_code=302, target_status_code=200)
+        self.assertTemplateUsed(response, 'feed.html')
     
     
