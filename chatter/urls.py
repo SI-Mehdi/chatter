@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from posts import views
 
+# Note that paths implicitly start with a '/'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),

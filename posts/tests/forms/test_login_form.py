@@ -60,6 +60,7 @@ class LogInFormTestCase(TestCase, LogInTest):
         messages_list = list(response.context['messages'])
         self.assertEqual(len(messages_list), 0)
         response_url = reverse('feed')
+        # Checking the response that is created from the POST redirects eventually to response_url
         self.assertRedirects(response, response_url, status_code=302, target_status_code=200)
         self.assertTemplateUsed(response, 'feed.html')
     
