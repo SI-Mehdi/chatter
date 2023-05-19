@@ -7,29 +7,7 @@
             <h1>Sign Up</h1>
             <form action="{% url 'sign_up' %}" method="post">
                 {% csrf_token %}
-                {% load widget_tweaks %}
-                <!-- for loop over each field in the form that was passed to the template in the context -->
-                <!-- Each field is rendered in a div with its name and control for the form -->
-                {% for field in form %}
-                    <div class="mb-3">
-                        {{ field.label_tag }}
-                        {% if form.is_bound %} <!-- If form has data -->
-                            {% if field.errors %} <!-- Change rendering if form has errors or not -->
-                                {% render_field field class="form-control is-invalid" %}
-                                <div class="invalid-feedback">
-                                    {{ field.errors }} <!-- Each field has error messages it adds in case of error -->
-                                </div>
-                            {% else %}
-                                {% render_field field class="form-control is-valid" %}
-                                <div class="valid-feedback">
-                                    Great!
-                                </div>
-                            {% endif %}
-                        {% else %}
-                            {% render_field field class="form-control" %} <!-- If its a form with no data (not bound) render as normal -->
-                        {% endif %}
-                    </div>
-                {% endfor %}
+                {% include 'partials/bootstrap_form.html' with form=form %} <!-- Form that is passed to the template is passed to the partial -->
                 <input type="submit" value="Sign up!" class="btn btn-success btn-lg">
             </form>
         </div>
