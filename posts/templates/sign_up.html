@@ -1,13 +1,12 @@
-<html>
-    <head>
-        <title>Chatter</title>
-    </head>
-    <body>
-        <h1>Chatter</h1>
-        <form action="{% url 'sign_up' %}" method="post">
-         {% csrf_token %}
-         {{ form.as_p }}
-         <input type="submit" value="Sign up!">
-        </form>
-    </body>
-</html>
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <h1>Sign Up</h1>
+    <form action="{% url 'sign_up' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Sign up!">
+    </form>
+</div>
+{% endblock %}
