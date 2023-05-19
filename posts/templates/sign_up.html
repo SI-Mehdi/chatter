@@ -1,6 +1,17 @@
-{% extends 'base.html' %}
+{% extends 'base_content.html' %}
 
-{% block body %}
+{% block content %}
+
+<style>
+  #background-image {
+    background-image: url('../../static/signup.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+</style>
+
+<div id='background-image'>
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -12,5 +23,6 @@
             </form>
         </div>
     </div>
+</div>
 </div>
 {% endblock %}
