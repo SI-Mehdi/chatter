@@ -1,13 +1,28 @@
-<html>
-    <head>
-        <title>Chatter</title>
-    </head>
-    <body>
-        <h1>Chatter</h1>
-        <form action="{% url 'sign_up' %}" method="post">
-         {% csrf_token %}
-         {{ form.as_p }}
-         <input type="submit" value="Sign up!">
-        </form>
-    </body>
-</html>
+{% extends 'base_content.html' %}
+
+{% block content %}
+
+<style>
+  #background-image {
+    background-image: url('../../static/signup.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+</style>
+
+<div id='background-image'>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>Sign Up</h1>
+            <form action="{% url 'sign_up' %}" method="post">
+                {% csrf_token %}
+                {% include 'partials/bootstrap_form.html' with form=form %} <!-- Form that is passed to the template is passed to the partial -->
+                <input type="submit" value="Sign up!" class="btn btn-success btn-lg">
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

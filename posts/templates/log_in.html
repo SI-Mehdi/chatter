@@ -1,17 +1,45 @@
-<html>
-    <head>
-        <title>Chatter</title>
-    </head>
-    <body>
-        <h1>Chatter</h1>
-        {% for message in messages %}
-            <p><b>{{ message }}</b></p>
-        {% endfor %}
-        <form action="{% url 'log_in' %}" method="post">
-         {% csrf_token %}
-         {{ form.as_p }}
-         <input type="submit" value="Log in!">
-        </form>
-    </body>
+{% extends 'base_content.html' %}
 
-</html>
+{% block content %}
+
+<style>
+  #background-image {
+      background: url('../../static/login.jpg') no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      background-size: cover;
+      -o-background-size: cover;
+    }
+</style>
+
+<div id="background-image">
+    <div class= "container">
+        <div class="row">
+            <div class="col-sm-12 col-md-6 offset-md-3 d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+                <div class="text-center">
+                    <h1>Log In</h1>
+                    {% for message in messages %}
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="alert alert-primary" role="alert">
+                                        <p><b>{{ message }}</b></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <form action="{% url 'log_in' %}" method="post">
+                        {% csrf_token %}
+                        {% include 'partials/bootstrap_form.html' with form=form %}
+                        <input type="submit" value="Log in!" class="btn btn-success btn-lg">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+    

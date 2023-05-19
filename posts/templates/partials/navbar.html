@@ -1,0 +1,41 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light mb-3" style="background-color: #e3f2fd;">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="{% static 'icon.svg' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+        Chatter
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    {% if user.is_authenticated %}
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'feed' %}">Feed</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Users</a>
+        </li>
+        <form class="d-flex container" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search  for posts, users..." aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </ul>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-fill-gear" style="font-size: 1rem;"></i> &nbsp; My Account
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Edit bio</a></li>
+            <li><a class="dropdown-item" href="#">Change password</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'log_out' %}">Log out</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+</nav>

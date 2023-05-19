@@ -1,12 +1,27 @@
-<html>
-    <head>
-        <title>Chatter</title>
-    </head>
-    <body>
-        <h1>Chatter</h1>
-        <p>Chat about the things you love!</p>
-        <p><a href='{% url "sign_up" %}'>Sign up!</a></p>
-        <p><a href='{% url "log_in" %}'>Log in!</a></p>
-    </body>
-
-</html>
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+<div id = "cover-image">
+    <div class="container">
+    <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="col-12 text-center">
+        <div class="card bg-transparent border-0 shadow-lg">
+            <div class="card-body">
+            <div class="d-flex justify-content-center align-items-center">
+                <p class="me-5 mt-5">
+                <a href="{% url 'sign_up' %}" class="btn btn-primary btn-lg">Sign up!</a>
+                </p>
+                <img src="{% static 'icon.svg' %}" alt="Image" class="img-fluid icon me-2">
+                <h1 class="text-light fs-1 shadow-text mt-4 big-text">Chatter</h1>
+                <p class="ms-5 mt-5">
+                <a href="{% url 'log_in' %}" class="btn btn-info btn-lg">Log in!</a>
+                </p>
+            </div>
+            <p class="mt-4 text-light font-weight-bold h4">Chat about the things you love!</p>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

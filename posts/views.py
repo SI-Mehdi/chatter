@@ -20,7 +20,7 @@ def sign_up(request):
     else:
         form = SignUpForm()
 
-    # This line is executed in the case of a GET request
+    # This line is executed in the case of a GET request, pass empty form to template
     return render(request, 'sign_up.html', {'form': form})
 
 def log_in(request):
