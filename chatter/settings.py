@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'posts'
+    'posts',
+    'widget_tweaks' # Allows us to adjust the way form widgets are rendered 
 ]
 
 MIDDLEWARE = [
