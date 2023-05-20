@@ -1,6 +1,8 @@
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from .forms import SignUpForm, LogInForm
+from .models import User, Post
+from .forms import SignUpForm, LogInForm, PostForm
 from django.contrib import messages
 
 # Create your views here.
@@ -49,4 +51,34 @@ def log_out(request):
     return redirect('home')
 
 def feed(request):
-    return render(request, 'feed.html')
+    form = PostForm()
+    posts = Post.objects.all()
+    return render(request, "feed.html", {'form': form, 'posts': posts})
+
+def new_post(request):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            current_user = request.user
+            form = PostForm(request.POST, request.FILES) 
+            # request.FILES is a dictionary-like object similar to request.POST
+            # request.POST contains POST data, request.FILES contains file data we are sending
+            if form.is_valid():
+                title = form.cleaned_data.get('title')
+                image = form.cleaned_data.get('image')
+                body = form.cleaned_data.get('body')
+
+                post = Post.objects.create(
+                    author=current_user,
+                    title=title,
+                    image=image,
+                    body=body
+                )
+
+                return redirect('feed')
+            else:
+                return render(request, 'feed.html', {'form': form}) # Form invalid so re-render the feed with form errors
+        else:
+            return redirect('log_in')
+    else:
+        return HttpResponseForbidden() # Got here means GET request
+

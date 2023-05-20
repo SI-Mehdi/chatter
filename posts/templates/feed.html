@@ -1,11 +1,22 @@
 {% extends 'base_content.html' %}
-{% block content %} <!-- Replacing content block not body anymore as we would overwrite navbar -->
+{% block content %} <!-- Replacing content block not body block anymore as we would overwrite navbar -->
 <div class="container">
-    <div class="row">
-        <div class="col-sm-12 col-md-6 offset-md-3">
-            <h1>Feed</h1>
-            <p><b>Feed for posts goes here!</p>
-        </div>
+  <div class="row">
+    <div class="col-xs-12 col-lg-6 col-xl-4">
+      <h3>New post</h3>
+        <form action="{% url 'new_post' %}" method="post" enctype="multipart/form-data">
+        <!-- 'enctype="multipart/form-data' is required for forms that send files-->
+        {% csrf_token %}
+        {% include 'partials/bootstrap_form.html' with form=form %}
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
     </div>
+    <!-- Dividing up the columns of this row to display form and posts -->
+    <div class="col-xs-12 col-lg-6 col-xl-8">
+      <h1>Feed</h1>
+      {% include 'partials/posts_as_table.html' with posts=posts %} <!-- Rendering each post passed in the context -->
+    </div>
+  </div>
 </div>
 {% endblock %}
+      

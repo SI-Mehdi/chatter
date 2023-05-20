@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from posts import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 # Note that paths implicitly start with a '/'
 
@@ -26,5 +28,6 @@ urlpatterns = [
     path('sign_up/', views.sign_up, name='sign_up'),
     path('feed/', views.feed, name='feed'),
     path('log_in/', views.log_in, name='log_in'),
-    path('log_out/', views.log_out, name='log_out')
-]
+    path('log_out/', views.log_out, name='log_out'),
+    path('new_post/', views.new_post, name='new_post')
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

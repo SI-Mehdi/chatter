@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize', # To make post times look nicer
     'posts',
     'widget_tweaks' # Allows us to adjust the way form widgets are rendered 
 ]
@@ -131,3 +132,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Overriding default user model with the one we have created
 
 AUTH_USER_MODEL = 'posts.User'
+
+# For handling image uploads
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
