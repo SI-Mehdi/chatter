@@ -1,0 +1,15 @@
+[
+    {
+        "model": "posts.user",
+        "pk": 1,
+        "fields": {
+            "first_name": "John",
+            "last_name":"Doe",
+            "username": "@johndoe",
+            "email": "johndoe@test.com",
+            "bio": "Test",
+            "password": "pbkdf2_sha256$600000$esBMIl4bqCMt9pypWYXmIc$3uzUUjctYEU8BjtCwOrWQtYuZNziaMtmhZTmIL6Hjvc=",
+            "is_active": true
+        }
+    }
+]

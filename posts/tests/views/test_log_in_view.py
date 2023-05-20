@@ -5,6 +5,9 @@ from posts.models import User
 from ..helpers import LogInTest
 
 class LogInViewTestCase(TestCase, LogInTest):
+
+    fixtures = ['posts/tests/fixtures/test_user.json']
+
     def setUp(self):
         self.url = reverse('log_in')
 
@@ -13,13 +16,7 @@ class LogInViewTestCase(TestCase, LogInTest):
             'password': 'Password123'
         }
 
-        self.user = User.objects.create_user('@johndoe',
-                                 first_name='John',
-                                 last_name='Doe',
-                                 email = 'johndoe@test.com',
-                                 bio = 'Test',
-                                 password = 'Password123',
-                                 is_active= True)
+        self.user = User.objects.get(username="@johndoe")
 
     def test_log_in_url(self):
         self.assertEqual(self.url, '/log_in/')

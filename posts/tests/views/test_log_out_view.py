@@ -5,16 +5,13 @@ from posts.models import User
 from ..helpers import LogInTest
 
 class LogOutViewTestCase(TestCase, LogInTest):
+
+    fixtures = ['posts/tests/fixtures/test_user.json']
+
     def setUp(self):
         self.url = reverse('log_out')
 
-        self.user = User.objects.create_user('@johndoe',
-                                 first_name='John',
-                                 last_name='Doe',
-                                 email = 'johndoe@test.com',
-                                 bio = 'Test',
-                                 password = 'Password123',
-                                 is_active= True)
+        self.user = User.objects.get(username="@johndoe")
 
     def test_log_out_url(self):
         self.assertEqual(self.url, '/log_out/')

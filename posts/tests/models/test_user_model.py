@@ -5,24 +5,15 @@ from posts.models import User
 # Create your tests here.
 
 class UserModelTestCase(TestCase):
-    def setUp(self):
-        self.user = User.objects.create(
-            username = '@johndoe',
-            email = 'johndoe@test.com',
-            first_name = "John",
-            last_name = "Doe",
-            password = "Password123",
-            bio = 'Test'
-        )
 
-        self.user_two = User.objects.create(
-            username = '@janedoe',
-            email = 'janedoe@test.com',
-            first_name = "Jane",
-            last_name = "Doe",
-            password = "Password123",
-            bio = 'Test'
-        )
+    fixtures = ['posts/tests/fixtures/test_user.json',
+                'posts/tests/fixtures/other_users.json'
+                ]
+
+    def setUp(self):
+        self.user = User.objects.get(username="@johndoe")
+
+        self.user_two = User.objects.get(username="@janedoe")
 
     def test_valid_user(self):
         self._assert_user_is_valid()
