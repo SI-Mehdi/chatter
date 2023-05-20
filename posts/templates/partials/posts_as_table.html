@@ -1,0 +1,7 @@
+<table>
+    {% for post in posts %}
+        {% include 'partials/post_as_table_row.html' with post=post %}
+    {% endfor %}
+</table>
+
+<!-- Each post is passed to the row partial to be added to the table as a row -->
