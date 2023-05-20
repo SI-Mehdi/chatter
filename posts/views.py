@@ -76,7 +76,7 @@ def new_post(request):
 
                 return redirect('feed')
             else:
-                return render(request, 'feed.html', {'form': form}) # Form invalid so re-render the feed
+                return render(request, 'feed.html', {'form': form}) # Form invalid so re-render the feed with form errors
         else:
             return redirect('log_in')
     else:
