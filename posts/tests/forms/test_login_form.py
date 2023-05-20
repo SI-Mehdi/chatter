@@ -7,18 +7,15 @@ from posts.models import User
 from ..helpers import LogInTest
 
 class LogInFormTestCase(TestCase, LogInTest):
+
+    fixtures = ['posts/tests/fixtures/test_user.json']
+
     def setUp(self):
         self.form_input = {
             'username': '@johndoe',
             'password': 'Password123'
         }
         self.url = reverse('log_in')
-        User.objects.create_user('@johndoe',
-                                 first_name='John',
-                                 last_name='Doe',
-                                 email = 'johndoe@test.com',
-                                 bio = 'Test',
-                                 password = 'Password123')
     
     def test_form_fields_correct(self):
         form = LogInForm()
