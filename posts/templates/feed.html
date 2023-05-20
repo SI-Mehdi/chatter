@@ -11,6 +11,7 @@
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
+    <!-- Dividing up the columns of this row to display form and posts -->
     <div class="col-xs-12 col-lg-6 col-xl-8">
       <h1>Feed</h1>
       {% include 'partials/posts_as_table.html' with posts=posts %} <!-- Rendering each post passed in the context -->
