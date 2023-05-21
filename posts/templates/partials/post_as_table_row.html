@@ -23,16 +23,18 @@
         <h3>{{ post.title }}</h3>
         <p class="post-author">
             <span class="post-author-user-details">
-                {{ post.author.username }}
+                <a href="{% url 'profile' username=post.author.username %}" class="post-author-user-details">{{ post.author.username }}</a>
                 &nbsp;&middot;&nbsp;
                 {{ post.posted_at|naturaltime }}
             </span>
         </p>
+        <br>
         {% if post.image %}
             <img src="{{ post.image.url }}" alt="Post Image">
         {% endif %}
         {% if post.body %}
             <p class="post-text">
+                <br>
                 {{ post.body }}
             </p>
         {% endif %}

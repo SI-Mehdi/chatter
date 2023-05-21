@@ -1,6 +1,7 @@
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.core.exceptions import ObjectDoesNotExist
 from .models import User, Post
 from .forms import SignUpForm, LogInForm, PostForm
 from django.contrib import messages
@@ -81,4 +82,14 @@ def new_post(request):
             return redirect('log_in')
     else:
         return HttpResponseForbidden() # Got here means GET request
+
+
+def profile(request, username):
+    try:
+        user = User.objects.get(username=username)
+        posts = Post.objects.filter(author=user)
+    except ObjectDoesNotExist:
+        return redirect('feed')
+    else:
+        return render(request, 'profile.html', {'user': user, 'posts': posts})
 

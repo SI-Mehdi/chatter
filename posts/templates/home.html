@@ -8,16 +8,24 @@
         <div class="card bg-transparent border-0 shadow-lg">
             <div class="card-body">
             <div class="d-flex justify-content-center align-items-center">
-                <p class="me-5 mt-5">
-                <a href="{% url 'sign_up' %}" class="btn btn-primary btn-lg">Sign up!</a>
-                </p>
+                {% if not user.is_authenticated %}
+                    <p class="me-5 mt-5">
+                    <a href="{% url 'sign_up' %}" class="btn btn-primary btn-lg">Sign up!</a>
+                    </p>
+                {% endif %}
                 <img src="{% static 'icon.svg' %}" alt="Image" class="img-fluid icon me-2">
                 <h1 class="text-light fs-1 shadow-text mt-4 big-text">Chatter</h1>
-                <p class="ms-5 mt-5">
-                <a href="{% url 'log_in' %}" class="btn btn-info btn-lg">Log in!</a>
-                </p>
+                {% if not user.is_authenticated %}
+                    <p class="ms-5 mt-5">
+                    <a href="{% url 'log_in' %}" class="btn btn-info btn-lg">Log in!</a>
+                    </p>
+                {% endif %}
             </div>
             <p class="mt-4 text-light font-weight-bold h4">Chat about the things you love!</p>
+            {% if user.is_authenticated %}
+                <br>
+                <a href="{% url 'feed' %}" class="btn btn-success btn-lg">Go to the feed!</a>
+            {% endif %}
             </div>
         </div>
         </div>

@@ -29,5 +29,6 @@ urlpatterns = [
     path('feed/', views.feed, name='feed'),
     path('log_in/', views.log_in, name='log_in'),
     path('log_out/', views.log_out, name='log_out'),
-    path('new_post/', views.new_post, name='new_post')
+    path('new_post/', views.new_post, name='new_post'),
+    path('profile/<str:username>', views.profile, name='profile')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
