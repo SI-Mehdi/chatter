@@ -13,9 +13,21 @@
         margin-left: 10px;
         color: #777777;
     }
+
     .post-image {
         margin-bottom: 5px;
     }
+
+    .card-width {
+        width: 300px
+    }
+
+    .post-content {
+        overflow-wrap: break-word;
+        word-wrap: break-word; /* Fallback for older browsers */
+        word-break: break-all; /* Additional fallback */
+    }
+
 </style>
 
 <!-- Row is used to display post -->
@@ -28,7 +40,10 @@
                 <h3 class="card-title">{{ post.title }}</h3>
                 <p class="post-author">
                     <span class="post-author-user-details">
-                        <a href="{% url 'profile' username=post.author.username %}" class="post-author-user-details">{{ post.author.username }}</a>
+                        <i class="bi bi-person-circle" style="font-size: 1rem;"></i>
+                        <a href="{% url 'profile' username=post.author.username %}" class="post-author-user-details" style="text-decoration: none;">
+                            {{ post.author.username }}
+                        </a>
                         &nbsp;&middot;&nbsp;
                         {{ post.posted_at|naturaltime }}
                     </span>
@@ -39,7 +54,7 @@
                 {% endif %}
                 {% if post.body %}
                     <br>
-                    <p class="card-text">
+                    <p class="card-text post-content">
                         {{ post.body }}
                     </p>
                 {% endif %}

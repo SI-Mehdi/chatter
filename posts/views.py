@@ -71,7 +71,7 @@ def log_out(request):
 @login_required
 def feed(request):
     form = PostForm()
-    posts = Post.objects.all()
+    posts = Post.objects.all().order_by('-posted_at') # 'order by' orders in ascending by default, '-' makes it descending
     return render(request, "feed.html", {'form': form, 'posts': posts})
 
 @login_required
@@ -107,7 +107,7 @@ def new_post(request):
 def profile(request, username):
     try:
         user = User.objects.get(username=username)
-        posts = Post.objects.filter(author=user)
+        posts = Post.objects.filter(author=user).order_by('-posted_at')
     except ObjectDoesNotExist:
         return redirect('feed')
     else:
