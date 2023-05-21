@@ -9,17 +9,22 @@
     background-size: cover;
     background-repeat: no-repeat;
   }
+
+  .sign-up-button {
+    margin-bottom: 20px;
+  }
 </style>
 
 <div id='background-image'>
 <div class="container">
     <div class="row">
-        <div class="col-12">
+        <div class="col-xs-12 col-lg-6 col-xl-4">
+            <br>
             <h1>Sign Up</h1>
             <form action="{% url 'sign_up' %}" method="post">
                 {% csrf_token %}
                 {% include 'partials/bootstrap_form.html' with form=form %} <!-- Form that is passed to the template is passed to the partial -->
-                <input type="submit" value="Sign up!" class="btn btn-success btn-lg">
+                <input type="submit" value="Sign up!" class="btn btn-success btn-lg sign-up-button">
             </form>
         </div>
     </div>

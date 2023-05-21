@@ -9,9 +9,24 @@ from django.contrib import messages
 
 # Create your views here.
 
+# Creating a decorator so that views that we should not be logged in for cannot be accessed when logged in
+def login_prohibited(view_function):
+    # Taking a view function and redirecting to feed if logged in, else execute it as normal
+    def modified_view_function(request): # Wrapper function
+        if request.user.is_authenticated:
+            return redirect('feed')
+        else:
+            return view_function(request)
+    return modified_view_function
+
+# Function is returned by this function, can store in variable, execute it later etc. '@' decorator syntax runs the returned wrapper function
+
+
+
 def home(request):
     return render(request, 'home.html')
 
+@login_prohibited
 def sign_up(request):
     if request.method == 'POST':
         # Create sign up form with the data sent in the POST request
@@ -27,6 +42,7 @@ def sign_up(request):
     # This line is executed in the case of a GET request, pass empty form to template
     return render(request, 'sign_up.html', {'form': form})
 
+@login_prohibited
 def log_in(request):
     if request.method == 'POST':
         form = LogInForm(request.POST)

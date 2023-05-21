@@ -2,7 +2,7 @@
 
 <style>
     .post-author {
-        margin-bottom: 0px;
+        margin-bottom: 10px;
     }
 
     .post-author-fullname {
@@ -12,7 +12,10 @@
     .post-author-user-details {
         margin-left: 10px;
         color: #777777;
-    } 
+    }
+    .post-image {
+        margin-bottom: 5px;
+    }
 </style>
 
 <!-- Row is used to display post -->
@@ -20,23 +23,29 @@
 
 <tr>
     <td>
-        <h3>{{ post.title }}</h3>
-        <p class="post-author">
-            <span class="post-author-user-details">
-                <a href="{% url 'profile' username=post.author.username %}" class="post-author-user-details">{{ post.author.username }}</a>
-                &nbsp;&middot;&nbsp;
-                {{ post.posted_at|naturaltime }}
-            </span>
-        </p>
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">{{ post.title }}</h3>
+                <p class="post-author">
+                    <span class="post-author-user-details">
+                        <a href="{% url 'profile' username=post.author.username %}" class="post-author-user-details">{{ post.author.username }}</a>
+                        &nbsp;&middot;&nbsp;
+                        {{ post.posted_at|naturaltime }}
+                    </span>
+                </p>
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="Post Image" class="card-img-top post-image">
+                    <br>
+                {% endif %}
+                {% if post.body %}
+                    <br>
+                    <p class="card-text">
+                        {{ post.body }}
+                    </p>
+                {% endif %}
+            </div>
+        </div>
         <br>
-        {% if post.image %}
-            <img src="{{ post.image.url }}" alt="Post Image">
-        {% endif %}
-        {% if post.body %}
-            <p class="post-text">
-                <br>
-                {{ post.body }}
-            </p>
-        {% endif %}
     </td>
 </tr>
+
