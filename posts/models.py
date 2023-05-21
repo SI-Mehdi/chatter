@@ -18,6 +18,9 @@ class User(AbstractUser):
     email = models.EmailField(unique=True, blank=False)
     bio = models.CharField(max_length=500, blank=True)
 
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
+
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length= 150, blank=False)
