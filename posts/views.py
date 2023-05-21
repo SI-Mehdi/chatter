@@ -1,6 +1,7 @@
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required # Needs 'LOGIN_URL' param in settings.py
 from django.core.exceptions import ObjectDoesNotExist
 from .models import User, Post
 from .forms import SignUpForm, LogInForm, PostForm
@@ -51,11 +52,13 @@ def log_out(request):
     logout(request)
     return redirect('home')
 
+@login_required
 def feed(request):
     form = PostForm()
     posts = Post.objects.all()
     return render(request, "feed.html", {'form': form, 'posts': posts})
 
+@login_required
 def new_post(request):
     if request.method == "POST":
         if request.user.is_authenticated:
@@ -84,6 +87,7 @@ def new_post(request):
         return HttpResponseForbidden() # Got here means GET request
 
 
+@login_required
 def profile(request, username):
     try:
         user = User.objects.get(username=username)
