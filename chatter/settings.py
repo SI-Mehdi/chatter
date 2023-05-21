@@ -138,3 +138,7 @@ AUTH_USER_MODEL = 'posts.User'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# URL users are redirected to for login protected views, using name from urls.py
+
+LOGIN_URL = 'log_in'
+

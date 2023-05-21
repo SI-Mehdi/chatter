@@ -40,7 +40,7 @@ class NewPostViewTestCase(TestCase, LogInTest):
     def test_new_post_unauthenticated_user(self):
         self.client.logout()
         response = self.client.post(self.url, data=self.form_data)
-
+        
         self.assertEqual(response.status_code, 302)  # Redirect to 'log_in' page
         self.assertEqual(Post.objects.count(), 0)  # No post created
 

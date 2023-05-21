@@ -30,3 +30,8 @@ class ProfileViewTestCase(TestCase):
         response = self.client.get(bad_url)
         response_url = reverse('feed')
         self.assertRedirects(response, response_url, status_code=302, target_status_code=200)
+    
+    def test_get_profile_redirects_when_not_logged_in(self):
+        response = self.client.get(self.url)
+        redirect_url = reverse('log_in') + f'?next={self.url}' # Query parameter 'next' holds URL to redirect to after log in
+        self.assertRedirects(response, redirect_url, status_code=302, target_status_code=200)
