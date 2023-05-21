@@ -4,48 +4,67 @@
 
 <style>
     .profile-text {
-    overflow:hidden;
-    padding-left:20px
+        overflow:hidden;
+        padding-left:20px
+    }
+
+    .pad-left {
+        padding-left: 20px;
+    }
+
+    .pad-top {
+        padding-top: 10px;
     }
 
     h3.profile-title {
-    margin-bottom: 0px;
+        margin-bottom: 0px;
     }
 
     .profile-username {
-    color: #777777;
-    font-weight: 300;
-    font-style: italic;
+        color: #777777;
+        font-weight: 300;
+        font-style: italic;
     }
 
     .profile-bio {
-    font-size: 1.1rem;
+        font-size: 1.1rem;
+    }
+
+    #background-image {
+        background-image: url('../../static/profile.jpg');
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
     }
 </style>
 
-<div class="container">
-  <div class="row content">
-    <div class="col-xs-12 col-lg-6 col-xl-4"> <!-- 1/3 of the row for the profile... -->
-      <div class="row content">
-        <div class="col-12">
-        <h1>Profile</h1>
-          <i class="bi bi-person-fill" style="font-size: 4rem;"></i>
-          <div class="profile-text">
-            <h3 class="profile-title">{{ user.full_name }}</h3>
-            <p class="profile-username">{{ user.username }}</p>
-          </div>
+<div id="background-image">
+    <div class="container">
+    <div class="row content">
+        <div class="col-xs-12 col-lg-6 col-xl-4"> <!-- 1/3 of the row for the profile... -->
+            <div class="row content">
+                <div class="col-12">
+                    <br>
+                    <div class="card">
+                        <h1 class="card-title pad-left pad-top">Profile</h1>
+                        <span class="card-img-top pad-left">
+                            <i class="bi bi-person-circle" style="font-size: 4rem;"></i>
+                        </span>
+                        <div class="profile-text card-text">
+                            <h3 class="profile-title">{{ user.full_name }}</h3>
+                            <p class="profile-username">{{ user.username }}</p>
+                            <p class="profile-bio">{{ user.bio }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <div class="col-xs-12 col-lg-6 col-xl-8"> <!-- ...then 2/3 for the posts -->
+            <br>
+            <h1>Posts from {{ user.username }}:</h1>    
+            {% include 'partials/posts_as_table.html' with posts=posts %}
         </div>
-      </div>
-      <div class="row content">
-        <div class="col-12">
-          <p class="profile-bio">{{ user.bio }}</p>
-        </div>
-      </div>
-    </div> 
-    <div class="col-xs-12 col-lg-6 col-xl-8"> <!-- ...then 2/3 for the posts -->
-      <h1>Posts from this user:</h1>    
-      {% include 'partials/posts_as_table.html' with posts=posts %}
     </div>
-  </div>
+    </div>
 </div>
 {% endblock %}

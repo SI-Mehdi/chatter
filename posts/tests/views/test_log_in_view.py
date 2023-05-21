@@ -39,3 +39,21 @@ class LogInViewTestCase(TestCase, LogInTest):
         self.assertTrue(isinstance(form, LogInForm))
         self.assertFalse(form.is_bound)
         self.assertFalse(self._is_logged_in())
+    
+    def test_get_login_redirects_when_logged_in(self):
+        self.client.login(username=self.user.username, password="Password123")
+        response = self.client.get(self.url, follow=True) # Follow means follow any redirects, want to be redirected to feed
+        redirect_url = reverse('feed')
+        self.assertRedirects(response, redirect_url, status_code=302, target_status_code=200)
+        self.assertTemplateUsed(response, 'feed.html')
+    
+    def test_post_login_redirects_when_logged_in(self):
+        self.client.login(username=self.user.username, password="Password123")
+        form_input = {
+            'username': '@random',
+            'password': 'Password123'
+        }
+        response = self.client.post(self.url, form_input, follow=True)
+        redirect_url = reverse('feed')
+        self.assertRedirects(response, redirect_url, status_code=302, target_status_code=200)
+        self.assertTemplateUsed(response, 'feed.html')
