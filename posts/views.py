@@ -104,12 +104,26 @@ def new_post(request):
 
 
 @login_required
-def profile(request, username):
+def profile(request, username): # username taken from path in urls.py
     try:
         user = User.objects.get(username=username)
         posts = Post.objects.filter(author=user).order_by('-posted_at')
+        following = request.user.is_following(user) # Check if logged in user is following target user, pass to template
+        can_follow = (request.user != user) # Can't follow self
     except ObjectDoesNotExist:
         return redirect('feed')
     else:
-        return render(request, 'profile.html', {'user': user, 'posts': posts})
+        return render(request, 'profile.html', {'user': user, 'posts': posts, 'following': following, 'can_follow': can_follow}) # Dictionary passed during render is the context
+
+@login_required
+def follow_toggle(request, username):
+    current_user = request.user # Current logged in user from request
+    try:
+        to_follow = User.objects.get(username=username)
+        current_user.toggle_follow(to_follow)
+    except ObjectDoesNotExist: # User get can throw this
+        return redirect('feed')
+    else:
+        return redirect('profile', username=username) # If we end up following, redirect to same profile
+
 

@@ -27,6 +27,8 @@ class User(AbstractUser):
         return f'{self.first_name} {self.last_name}'
     
     def toggle_follow(self, to_follow):
+        if self == to_follow:
+            return # Cannot follow self
         if self in to_follow.followers.all(): # If current user is in the followers of target user, then we remove (unfollow) from the followers
             to_follow.followers.remove(self)
         else:

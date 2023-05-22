@@ -180,6 +180,20 @@ class UserModelTestCase(TestCase):
 
         self.assertEqual(jim.follower_count(), 1)
         self.assertEqual(jim.following_count(), 0)
+    
+    def test_user_cannot_follow_self(self):
+        john = User.objects.get(username='@johndoe')
+
+        before_followers = john.follower_count()
+        before_following = john.following_count()
+
+        john.toggle_follow(john)
+
+        after_followers = john.follower_count()
+        after_following = john.following_count()
+
+        self.assertEqual(before_followers, after_followers)
+        self.assertEqual(before_following, after_following)
 
     def _assert_user_is_valid(self):
         try:

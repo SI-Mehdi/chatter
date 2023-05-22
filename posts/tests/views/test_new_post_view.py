@@ -4,6 +4,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from posts.models import User, Post
 from posts.forms import PostForm
 from ..helpers import LogInTest
+import os
 
 class NewPostViewTestCase(TestCase, LogInTest):
 
@@ -23,6 +24,13 @@ class NewPostViewTestCase(TestCase, LogInTest):
                 'image': SimpleUploadedFile('test.jpg', image_data, content_type='image/jpeg'),
                 'body': 'Test post body',
             }
+    
+    def tearDown(self):
+        # Delete the uploaded images after the test
+        for post in Post.objects.all():
+            if post.image:
+                os.remove(post.image.path)
+        super().tearDown()
     
     def test_new_post_authenticated_user(self):
         self.assertEqual(Post.objects.count(), 0)
