@@ -12,7 +12,6 @@ class UserModelTestCase(TestCase):
 
     def setUp(self):
         self.user = User.objects.get(username="@johndoe")
-
         self.user_two = User.objects.get(username="@janedoe")
 
     def test_valid_user(self):
@@ -137,6 +136,50 @@ class UserModelTestCase(TestCase):
     def test_bio_must_not_contain_more_than_500_characters(self):
         self.user.bio = 'x' * 501
         self._assert_user_is_invalid()
+
+    def test_toggle_follow(self):
+        john = User.objects.get(username='@johndoe')
+        jane = User.objects.get(username='@janedoe')
+
+        self.assertFalse(john.is_following(jane))
+        self.assertFalse(jane.is_following(john))
+
+        john.toggle_follow(jane)
+
+        self.assertTrue(john.is_following(jane))
+        self.assertFalse(jane.is_following(john))
+
+        john.toggle_follow(jane)
+
+        self.assertFalse(john.is_following(jane))
+        self.assertFalse(jane.is_following(john))
+
+
+    def test_follow_counters(self):
+        john = User.objects.get(username='@johndoe')
+        jane = User.objects.get(username='@janedoe')
+        jim = User.objects.get(username='@jimdoe')
+
+        self.assertEqual(john.follower_count(), 0)
+        self.assertEqual(john.following_count(), 0)
+
+        self.assertEqual(jane.follower_count(), 0)
+        self.assertEqual(jane.following_count(), 0)
+
+        self.assertEqual(jim.follower_count(), 0)
+        self.assertEqual(jim.following_count(), 0)
+
+        john.toggle_follow(jane)
+        jane.toggle_follow(jim)
+
+        self.assertEqual(john.follower_count(), 0)
+        self.assertEqual(john.following_count(), 1)
+
+        self.assertEqual(jane.follower_count(), 1)
+        self.assertEqual(jane.following_count(), 1)
+
+        self.assertEqual(jim.follower_count(), 1)
+        self.assertEqual(jim.following_count(), 0)
 
     def _assert_user_is_valid(self):
         try:

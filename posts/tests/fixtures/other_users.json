@@ -11,5 +11,33 @@
             "password": "pbkdf2_sha256$600000$esBMIl4bqCMt9pypWYXmIc$3uzUUjctYEU8BjtCwOrWQtYuZNziaMtmhZTmIL6Hjvc=",
             "is_active": true
         }
+    },
+
+    {
+        "model": "posts.user",
+        "pk": 3,
+        "fields": {
+            "first_name": "Jim",
+            "last_name":"Doe",
+            "username": "@jimdoe",
+            "email": "jimdoe@test.com",
+            "bio": "Test",
+            "password": "pbkdf2_sha256$600000$esBMIl4bqCMt9pypWYXmIc$3uzUUjctYEU8BjtCwOrWQtYuZNziaMtmhZTmIL6Hjvc=",
+            "is_active": true
+        }
+    },
+
+    {
+        "model": "posts.user",
+        "pk": 4,
+        "fields": {
+            "first_name": "Jackie",
+            "last_name":"Doe",
+            "username": "@jackiedoe",
+            "email": "jackiedoe@test.com",
+            "bio": "Test",
+            "password": "pbkdf2_sha256$600000$esBMIl4bqCMt9pypWYXmIc$3uzUUjctYEU8BjtCwOrWQtYuZNziaMtmhZTmIL6Hjvc=",
+            "is_active": true
+        }
     }
 ]
