@@ -26,7 +26,7 @@ class NewPostViewTestCase(TestCase, LogInTest):
             }
     
     def tearDown(self):
-        # Delete the uploaded images after the test
+        # Delete the uploaded images after the tests
         for post in Post.objects.all():
             if post.image:
                 os.remove(post.image.path)
