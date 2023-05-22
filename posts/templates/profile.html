@@ -26,6 +26,11 @@
         font-style: italic;
     }
 
+    .profile-follow-stats {
+        color: #777777;
+        font-weight: 400;
+    }
+
     .profile-bio {
         font-size: 1.1rem;
     }
@@ -53,6 +58,14 @@
                         <div class="profile-text card-text">
                             <h3 class="profile-title">{{ user.full_name }}</h3>
                             <p class="profile-username">{{ user.username }}</p>
+                            <p class="profile-follow-stats">
+                                {{ user.follower_count }} Followers
+                                &nbsp;&middot;&nbsp;
+                                {{ user.following_count }} Following
+                            </p>
+                            <button class="btn btn-success mb-3">
+                                Follow!
+                            </button>
                             <p class="profile-bio">{{ user.bio }}</p>
                         </div>
                     </div>
