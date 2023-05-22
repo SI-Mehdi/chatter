@@ -23,10 +23,13 @@ class ProfileViewTestCase(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'profile.html')
+        reverse_url = reverse('profile', kwargs={'username': self.user.username})
+        self.assertEqual(reverse_url, self.url)
+
     
     def test_get_profile_invalid_username(self):
         self.client.login(username=self.user.username, password='Password123')
-        bad_url = reverse('profile', kwargs={'username': "@wrongone"})
+        bad_url = reverse('profile', kwargs={'username': "@wrongone"}) # The kwargs dictionary maps parameter names (defined in the URL pattern) to their corresponding values.
         response = self.client.get(bad_url)
         response_url = reverse('feed')
         self.assertRedirects(response, response_url, status_code=302, target_status_code=200)
