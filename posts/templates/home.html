@@ -3,9 +3,9 @@
 {% block body %}
 <div id = "cover-image">
     <div class="container">
-    <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
-        <div class="col-12 text-center">
-        <div class="card bg-transparent border-0 shadow-lg">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-12 text-center mt-5">
+        <div class="card bg-transparent border-0 shadow-lg mt-5">
             <div class="card-body">
             <div class="d-flex justify-content-center align-items-center">
                 {% if not user.is_authenticated %}
@@ -28,6 +28,24 @@
             {% endif %}
             </div>
         </div>
+        </div>
+    </div>
+    <div class="row align-items-center mt-5">
+        <div class="col-xs-12 col-lg-6 col-xl-6 mx-auto text-center mt-5">
+            <div class="card mx-auto mt-5 shadow-lg" style="width: 25rem;">
+            <i class="bi bi-people card-img-top" style="font-size: 9rem;"></i>
+            <div class="card-body">
+                <h3 class="card-text">Number of active users: {{ user_count }}</h3>
+            </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-lg-6 col-xl-6 mx-auto text-center mt-5">
+            <div class="card mx-auto mt-5 shadow-lg" style="width: 25rem;">
+            <i class="bi bi-chat-heart card-img-top" style="font-size: 9rem;"></i>
+            <div class="card-body">
+                <h3 class="card-text">Number of posts: {{ user_count }}</h3>
+            </div>
+            </div>
         </div>
     </div>
     </div>

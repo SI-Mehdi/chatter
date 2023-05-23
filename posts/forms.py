@@ -48,6 +48,14 @@ class SignUpForm(forms.ModelForm):
         )
         return user
 
+class EditProfileForm(forms.ModelForm):
+    """Form for editing profiles"""
+
+    class Meta:
+        model= User
+        fields=['first_name', 'last_name', 'email', 'bio']
+        widgets={"bio": forms.Textarea()}
+
 class PostForm(forms.ModelForm):
     """Form to ask user for post text.
 

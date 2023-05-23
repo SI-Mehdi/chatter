@@ -8,7 +8,7 @@ class UserAdmin(admin.ModelAdmin):
 
     """Admin interface config for users"""
 
-    list_display = [
+    list_display = [ # Fields to display
         'username',
         'email',
         'first_name',
