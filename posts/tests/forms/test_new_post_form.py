@@ -4,6 +4,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from posts.models import User, Post
 from posts.forms import PostForm
 from ..helpers import LogInTest
+import os
 
 class NewPostFormTestCase(TestCase, LogInTest):
 
@@ -24,6 +25,13 @@ class NewPostFormTestCase(TestCase, LogInTest):
                 'image': SimpleUploadedFile('test.jpg', image_data, content_type='image/jpeg'),
                 'body': 'Test post body',
             }
+    
+    def tearDown(self):
+        # Delete the uploaded images after the tests
+        for post in Post.objects.all():
+            if post.image:
+                os.remove(post.image.path)
+        super().tearDown()
 
     def test_valid_form(self):
         form = PostForm(data = self.form_data)

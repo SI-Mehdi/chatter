@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required # Needs 'LOGIN_URL' param in settings.py
 from django.core.exceptions import ObjectDoesNotExist
 from .models import User, Post
-from .forms import SignUpForm, LogInForm, PostForm
+from .forms import SignUpForm, LogInForm, PostForm, EditProfileForm
 from django.contrib import messages
 
 # Create your views here.
@@ -24,7 +24,9 @@ def login_prohibited(view_function):
 
 
 def home(request):
-    return render(request, 'home.html')
+    user_count = User.objects.count()
+    post_count = Post.objects.count()
+    return render(request, 'home.html', {'user_count': user_count, 'post_count': post_count})
 
 @login_prohibited
 def sign_up(request):
@@ -114,6 +116,22 @@ def profile(request, username): # username taken from path in urls.py
         return redirect('feed')
     else:
         return render(request, 'profile.html', {'user': user, 'posts': posts, 'following': following, 'can_follow': can_follow}) # Dictionary passed during render is the context
+    
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('feed')
+        else:
+            return render(request, 'edit_profile.html', {'form': form})
+    else:
+        form = EditProfileForm(instance=request.user)
+        return render(request, 'edit_profile.html', {'form': form})
+    
+
 
 @login_required
 def follow_toggle(request, username):

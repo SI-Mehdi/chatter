@@ -48,6 +48,22 @@ class SignUpForm(forms.ModelForm):
         )
         return user
 
+class EditProfileForm(forms.ModelForm):
+    """Form for editing profiles"""
+
+    class Meta:
+        model= User
+        fields=['first_name', 'last_name', 'email', 'bio']
+        widgets={"bio": forms.Textarea()}
+    
+    # def clean(self):
+    #     # Use super.clean() to get 'cleaned_data' to check bio is not >500 chars
+    #     super().clean()
+    #     bio = self.cleaned_data.get('bio')
+
+    #     if len(bio) > 500:
+    #         self.add_error("bio", "Bio cannot exceed 500 characters")
+
 class PostForm(forms.ModelForm):
     """Form to ask user for post text.
 
