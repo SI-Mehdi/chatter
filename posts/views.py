@@ -86,7 +86,7 @@ def new_post(request):
             # request.POST contains POST data, request.FILES contains file data we are sending
             if form.is_valid():
                 title = form.cleaned_data.get('title')
-                image = form.cleaned_data.get('image')
+                image = form.cleaned_data.get('image') # form.cleaned_data is a dictionary-like object as well
                 body = form.cleaned_data.get('body')
 
                 post = Post.objects.create(
@@ -121,14 +121,14 @@ def profile(request, username): # username taken from path in urls.py
 @login_required
 def edit_profile(request):
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, instance=request.user)
+        form = EditProfileForm(request.POST, instance=request.user) # Fill form with POST data and assign changes to current user
         if form.is_valid():
             form.save()
             return redirect('feed')
         else:
             return render(request, 'edit_profile.html', {'form': form})
-    else:
-        form = EditProfileForm(instance=request.user)
+    else: # GET request
+        form = EditProfileForm(instance=request.user) # Fill in the form with data of current user
         return render(request, 'edit_profile.html', {'form': form})
     
 
