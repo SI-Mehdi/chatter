@@ -1,5 +1,9 @@
 # Chatter
-A basic social media platform built with Django
+A basic social media platform built with Django.
+
+Users can sign up, login and create posts with text and images.
+
+![Home page](static/readme/homepage.png)
 
 ## Installation instructions
 To install the software and use it in your local development environment, you must first set up and activate a local development environment.  From the root of the project:
