@@ -1,35 +1,39 @@
 # Chatter
-A basic social media platform built with Django
+A basic social media platform built with Django.
+
+Users can sign up, login and create posts with text and images.
+
+![Home page](static/readme/homepage.png)
 
 ## Installation instructions
 To install the software and use it in your local development environment, you must first set up and activate a local development environment.  From the root of the project:
 
 ```
-$ virtualenv venv
-$ source venv/bin/activate
+virtualenv venv
+source venv/bin/activate
 ```
 
 Install all required packages:
 
 ```
-$ pip3 install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 Migrate the database:
 
 ```
-$ python3 manage.py migrate
+python3 manage.py migrate
 ```
 
 Seed the development database with:
 
 ```
-$ python3 manage.py seed
+python3 manage.py seed
 ```
 
 Run all tests with:
 ```
-$ python3 manage.py test
+python3 manage.py test
 ```
 
 ## Sources
