@@ -77,6 +77,7 @@ def feed(request):
     posts = Post.objects.all().order_by('-posted_at') # 'order by' orders in ascending by default, '-' makes it descending
     return render(request, "feed.html", {'form': form, 'posts': posts})
 
+@login_required
 def search(request):
     query = request.GET.get('query')  # Get the search query from the request parameters
     if query: # Only execute if query provided by the user

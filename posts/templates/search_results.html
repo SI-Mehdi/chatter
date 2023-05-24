@@ -56,25 +56,27 @@
                 <h2 class="search-title">Users</h2>
                 {% if users %}
                     {% for user in users  %}
+                        {% if not user.is_superuser %} <!-- Don't want to show superuser account for debugging -->
                         <form class="vh-100" action= "{% url 'follow_toggle' username=user.username %}" method="get">
-                        <div class="card mb-4">
-                            <span class="card-img-top pad-left">
-                                <i class="bi bi-person-circle" style="font-size: 4rem;"></i>
-                            </span>
-                            <div class="profile-text card-text">
-                                <h3 class="profile-title">{{ user.full_name }}</h3>
-                                <a class="profile-username" href="{% url 'profile' username=user.username %}" style="text-decoration: none; font-weight: bold;">
-                                    {{ user.username }}
-                                </a> <!-- 'username' is defined in urls.py -->
-                                <p class="profile-follow-stats">
-                                    {{ user.follower_count }} Followers <!-- if method took >1 argument, space after method call followed by args  -->
-                                    &nbsp;&middot;&nbsp;
-                                    {{ user.following_count }} Following
-                                </p>
-                                <p class="profile-bio">{{ user.bio }}</p>
+                            <div class="card mb-4">
+                                <span class="card-img-top pad-left">
+                                    <i class="bi bi-person-circle" style="font-size: 4rem;"></i>
+                                </span>
+                                <div class="profile-text card-text">
+                                    <h3 class="profile-title">{{ user.full_name }}</h3>
+                                    <a class="profile-username" href="{% url 'profile' username=user.username %}" style="text-decoration: none; font-weight: bold;"> <!-- 'username' URL param is defined in urls.py -->
+                                        {{ user.username }}
+                                    </a>
+                                    <p class="profile-follow-stats">
+                                        {{ user.follower_count }} Followers <!-- if method took >1 argument, space after method call followed by args  -->
+                                        &nbsp;&middot;&nbsp;
+                                        {{ user.following_count }} Following
+                                    </p>
+                                    <p class="profile-bio">{{ user.bio }}</p>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                        {% endif %}
                     {% endfor %}
                 {% else %}
                     <h2 class="mt-3 vh-100 search-title">No users were found...</h2>
