@@ -31,12 +31,6 @@ Migrate the database:
 python3 manage.py migrate
 ```
 
-Seed the development database with:
-
-```
-python3 manage.py seed
-```
-
 Run all tests with:
 ```
 python3 manage.py test
