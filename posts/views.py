@@ -82,8 +82,10 @@ def search(request):
     query = request.GET.get('query')  # Get the search query from the request parameters
     if query: # Only execute if query provided by the user
         # Retrieve posts and users matching the search query
-        posts = Post.objects.filter(title__icontains=query) | Post.objects.filter(body__icontains=query) # 'icontains' is a Django field lookup, it is case insensitive
+        posts = Post.objects.filter(title__icontains=query) | Post.objects.filter(body__icontains=query).order_by('-posted_at') # 'icontains' is a Django field lookup, it is case insensitive
         users = User.objects.filter(username__icontains=query) | User.objects.filter(first_name__icontains=query) | User.objects.filter(last_name__icontains=query)
+
+        posts.order_by('-posted_at') # 'order by' orders in ascending by default, '-' makes it descending
     else:
         posts = []
         users = []
