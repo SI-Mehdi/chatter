@@ -6,6 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from .models import User, Post
 from .forms import SignUpForm, LogInForm, PostForm, EditProfileForm
 from django.contrib import messages
+from django.db.models import Q
 
 # Create your views here.
 
@@ -75,6 +76,19 @@ def feed(request):
     form = PostForm()
     posts = Post.objects.all().order_by('-posted_at') # 'order by' orders in ascending by default, '-' makes it descending
     return render(request, "feed.html", {'form': form, 'posts': posts})
+
+def search(request):
+    query = request.GET.get('query')  # Get the search query from the request parameters
+    if query: # Only execute if query provided by the user
+        # Retrieve posts and users matching the search query
+        posts = Post.objects.filter(title__icontains=query) | Post.objects.filter(body__icontains=query) # 'icontains' is a Django field lookup, it is case insensitive
+        users = User.objects.filter(username__icontains=query) | User.objects.filter(first_name__icontains=query) | User.objects.filter(last_name__icontains=query)
+    else:
+        posts = []
+        users = []
+
+    return render(request, 'search_results.html', {'query': query, 'posts': posts, 'users': users})
+
 
 @login_required
 def new_post(request):

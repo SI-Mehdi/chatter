@@ -1,0 +1,94 @@
+{% extends 'base_content.html' %}
+
+{% block content %}
+
+<style>
+    .profile-text {
+        overflow:hidden;
+        padding-left:20px;
+        padding-right:20px;
+    }
+
+    .pad-left {
+        padding-left: 20px;
+    }
+
+    .pad-top {
+        padding-top: 10px;
+    }
+
+    h3.profile-title {
+        margin-bottom: 0px;
+    }
+
+    .profile-username {
+        color: #777777;
+        font-weight: 300;
+        font-style: italic;
+    }
+
+    .profile-follow-stats {
+        color: #777777;
+        font-weight: 400;
+    }
+
+    .profile-bio {
+        font-size: 1.1rem;
+    }
+
+    #background-image {
+        background-image: url('../../static/feed.jpg');
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .search-title {
+        color: white;
+    }
+</style>
+
+<div id="background-image">
+    <div class="container">
+        <div class="row">
+            <h1 class="mt-5 search-title">Results for "{{ query }}"</h1>
+            <div class="col-xs-12 col-lg-6 col-xl-4">
+                <h2 class="search-title">Users</h2>
+                {% if users %}
+                    {% for user in users  %}
+                        <form class="vh-100" action= "{% url 'follow_toggle' username=user.username %}" method="get">
+                        <div class="card mb-4">
+                            <span class="card-img-top pad-left">
+                                <i class="bi bi-person-circle" style="font-size: 4rem;"></i>
+                            </span>
+                            <div class="profile-text card-text">
+                                <h3 class="profile-title">{{ user.full_name }}</h3>
+                                <a class="profile-username" href="{% url 'profile' username=user.username %}" style="text-decoration: none; font-weight: bold;">
+                                    {{ user.username }}
+                                </a> <!-- 'username' is defined in urls.py -->
+                                <p class="profile-follow-stats">
+                                    {{ user.follower_count }} Followers <!-- if method took >1 argument, space after method call followed by args  -->
+                                    &nbsp;&middot;&nbsp;
+                                    {{ user.following_count }} Following
+                                </p>
+                                <p class="profile-bio">{{ user.bio }}</p>
+                            </div>
+                        </div>
+                    </form>
+                    {% endfor %}
+                {% else %}
+                    <h2 class="mt-3 vh-100 search-title">No users were found...</h2>
+                {% endif %}
+            </div>
+            <div class="col-xs-12 col-lg-6 col-xl-8">
+                <h2 class="search-title">Posts</h2>
+                {% if posts %}
+                {% include 'partials/posts_as_table.html' with posts=posts %} <!-- Rendering each post passed in the context -->
+                {% else %}
+                    <h2 class="mt-3 vh-100 search-title">No posts were found...</h2>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
