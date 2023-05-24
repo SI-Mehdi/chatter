@@ -1,0 +1,13 @@
+[
+    {
+        "model": "posts.post",
+        "pk": 1,
+        "fields": {
+            "author": 1,
+            "title": "Test Post",
+            "image": "post_images/test.jpg",
+            "body": "Test post body",
+            "posted_at": "2023-05-24T12:00:00Z"
+        }
+    }
+]

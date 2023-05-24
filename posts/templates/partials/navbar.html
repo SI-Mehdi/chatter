@@ -26,8 +26,8 @@
             <span class="d-inline-block text-truncate" style="max-width: 100px;">My Profile</span>
           </a>
         </li>
-        <form class="d-flex container" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search  for posts, users..." aria-label="Search">
+        <form class="d-flex container" role="search" action="{% url 'search' %}" method="get">
+            <input class="form-control me-2" type="search" name="query" placeholder="Search  for posts, users..." aria-label="Search"> <!-- 'name' attribute is used to assign the input value to a GET request parameter -->
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
       </ul>
