@@ -3,7 +3,7 @@ A basic social media platform built with Django.
 
 Users can sign up, login and create posts with text and images.
 
-![Home page](static/readme/home.png)
+![Home page](static/readme/home_latest.png)
 
 ![Feed page](static/readme/feed.png)
 
