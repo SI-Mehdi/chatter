@@ -1,5 +1,6 @@
 {% extends 'base_content.html' %}
 {% block content %} <!-- Replacing content block not body block anymore as we would overwrite navbar -->
+
 <style>
   #background-image {
       background: url('../../static/feed.jpg') no-repeat center center fixed;
@@ -17,6 +18,17 @@
 <div id="background-image">
   <div class="container">
     <div class="row">
+      {% for message in messages %}
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="alert alert-success mt-3" role="alert">
+                        <p><b>{{ message }}</b></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+      {% endfor %}
       <div class="col-xs-12 col-lg-6 col-xl-4">
       <br>
         <h3 class="white-title">New post</h3>
