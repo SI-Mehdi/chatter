@@ -2,11 +2,11 @@ from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required # Needs 'LOGIN_URL' param in settings.py
+from django.contrib.auth.hashers import check_password # Need this as passwords are stored as hashes
 from django.core.exceptions import ObjectDoesNotExist
 from .models import User, Post
-from .forms import SignUpForm, LogInForm, PostForm, EditProfileForm
+from .forms import SignUpForm, LogInForm, PostForm, EditProfileForm, ChangePasswordForm
 from django.contrib import messages
-from django.db.models import Q
 
 # Create your views here.
 
@@ -148,6 +148,28 @@ def edit_profile(request):
         form = EditProfileForm(instance=request.user) # Fill in the form with data of current user
         return render(request, 'edit_profile.html', {'form': form})
     
+@login_required
+def change_password(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = ChangePasswordForm(data=request.POST)
+        if form.is_valid():
+            password = form.cleaned_data.get('password')
+            if check_password(password, current_user.password): # check hash matches one in DB
+                new_password = form.cleaned_data.get('new_password')
+                current_user.set_password(new_password)
+                current_user.save()
+                login(request, current_user)
+                messages.add_message(request, messages.SUCCESS, "Password updated!")
+                return redirect('feed')
+        else:
+            # Not valid, rerender form with errors in fields
+            messages.add_message(request, messages.ERROR, "The information you entered was incorrect. Please try again")
+        return render(request, 'change_password.html', {'form': form})
+    else:
+        # GET request
+        form = ChangePasswordForm()
+        return render(request, 'change_password.html', {'form': form})
 
 
 @login_required

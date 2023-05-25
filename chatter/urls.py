@@ -32,6 +32,7 @@ urlpatterns = [
     path('new_post/', views.new_post, name='new_post'),
     path('profile/<str:username>', views.profile, name='profile'),
     path('edit_profile/', views.edit_profile, name='edit_profile'),
+    path('change_password/', views.change_password, name='change_password'),
     path('follow_toggle/<str:username>', views.follow_toggle, name='follow_toggle'),
     path('search/', views.search, name='search')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
