@@ -25,6 +25,8 @@ Install all required packages:
 pip3 install -r requirements.txt
 ```
 
+At the root of the project, create the media directory: ``` /media/post_images ```
+
 Migrate the database:
 
 ```
