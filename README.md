@@ -41,6 +41,6 @@ python3 manage.py test
 ## Sources
 The packages used by this application are specified in `requirements.txt`
 
-This project uses code from a Django project that was part of one of my university modules
+This project uses code from a Django project that was part of one of my university modules.
 
-Chatter logo is an icon from EmojiOne (now JoyPixels)
+Chatter logo is an icon from EmojiOne (now JoyPixels).
